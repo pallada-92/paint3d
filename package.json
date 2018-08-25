@@ -1,0 +1,52 @@
+{
+  "name": "paint3d",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/ramda": "^0.25.36",
+    "@types/react-resize-detector": "^3.1.0",
+    "ramda": "^0.25.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-resize-detector": "^3.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "prettier": {
+    "extends": [
+      "prettier",
+      "prettier/react"
+    ],
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "printWidth": 78
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-rc.3",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-rc.3",
+    "@storybook/addon-actions": "^3.4.10",
+    "@storybook/addon-links": "^3.4.10",
+    "@storybook/addons": "^3.4.10",
+    "@storybook/react": "^4.0.0-alpha.17",
+    "@types/jest": "^23.3.1",
+    "@types/node": "^10.9.2",
+    "@types/react": "^16.4.11",
+    "@types/react-dom": "^16.0.7",
+    "@types/storybook__addon-actions": "^3.4.1",
+    "@types/storybook__addon-links": "^3.3.2",
+    "@types/storybook__react": "^3.0.9",
+    "awesome-typescript-loader": "^5.2.0",
+    "babel-core": "^7.0.0-0",
+    "babel-runtime": "^6.26.0",
+    "react-scripts-ts": "^2.17.0",
+    "storybook-host": "^5.0.0",
+    "typedoc": "^0.12.0",
+    "typescript": "^3.0.1"
+  }
+}
