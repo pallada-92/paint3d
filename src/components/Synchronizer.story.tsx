@@ -8,16 +8,16 @@ import Synchronizer from './Synchronizer';
 
 makeHostStory('Synchronizer', (width: number, height: number) => (
   <Synchronizer>
-    {({ addStroke, data }) => (
+    {({ addStroke, data: data3d }) => (
       <Controls
         addStroke={addStroke}
-        data3d={data}
+        data3d={data3d}
         width={width}
         height={height}
       >
-        {({ onDraw, onRotate, onScroll, data }) => (
+        {({ onDraw, onRotate, onScroll, data: data2d }) => (
           <React.Fragment>
-            <StrokeCanvas width={width} height={height} data={data} />
+            <StrokeCanvas width={width} height={height} data={data2d} />
             <PointerCanvas
               width={width}
               height={height}

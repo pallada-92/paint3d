@@ -3,7 +3,7 @@ import { clamp, sortBy } from 'ramda';
 import * as React from 'react';
 
 import {
-  CameraDirection,
+  ICameraDirection,
   Position2d,
   Position3d,
   Shape,
@@ -28,7 +28,7 @@ interface IProps {
 
 interface IState {
   target: Position3d;
-  direction: CameraDirection;
+  direction: ICameraDirection;
 }
 
 const FOV = 90;
@@ -78,14 +78,18 @@ class Controls extends React.Component<IProps, IState> {
     const { width, height } = this.props;
 
     this.props.data3d.forEach(stroke => {
-      if (stroke === null) { return; }
+      if (stroke === null) {
+        return;
+      }
       const [[x, y, z], radius, color, shape] = stroke;
       vec4.set(vector, x, y, z, 1);
       vec4.transformMat4(vector, vector, matrix);
       const rx = vector[0];
       const ry = vector[1];
       const rw = vector[3];
-      if (rw < 0) { return; }
+      if (rw < 0) {
+        return;
+      }
       const u = (rx / rw + 0.5) * width;
       const v = (ry / rw + 0.5) * height;
       const elem = [
@@ -101,7 +105,8 @@ class Controls extends React.Component<IProps, IState> {
     return sortBy(v => v[0], res);
   };
 
-  public getData = () => this.transformData(this.props.data3d, this.getMatrix());
+  public getData = () =>
+    this.transformData(this.props.data3d, this.getMatrix());
 
   public onDraw = (pos: Position2d) => {
     const matrix = this.getMatrix();
@@ -134,7 +139,9 @@ class Controls extends React.Component<IProps, IState> {
   };
 
   public onScroll = (delta: number) => {
-    if (delta === 0) { return; }
+    if (delta === 0) {
+      return;
+    }
     this.setState(() => {
       const matrix = this.getMatrix();
       const vector = vec4.fromValues(0, 0, 5000, 5000);

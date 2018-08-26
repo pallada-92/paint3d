@@ -1,3 +1,5 @@
+/* tslint:disable:no-bitwise */
+
 import { Position2d } from '../types';
 
 // https://stackoverflow.com/a/42111623
