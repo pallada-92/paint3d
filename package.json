@@ -7,7 +7,8 @@
     "ramda": "^0.25.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-resize-detector": "^3.1.1"
+    "react-resize-detector": "^3.1.1",
+    "socket.io-client": "^2.1.1"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -40,6 +41,7 @@
     "@types/react": "^16.4.11",
     "@types/react-dom": "^16.0.7",
     "@types/react-resize-detector": "^3.1.0",
+    "@types/socket.io-client": "^1.4.32",
     "@types/storybook__addon-actions": "^3.4.1",
     "@types/storybook__addon-links": "^3.3.2",
     "@types/storybook__react": "^3.0.9",
