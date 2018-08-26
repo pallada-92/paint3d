@@ -22,6 +22,7 @@ interface IProps {
   width: number;
   height: number;
   children: (args: IArgs) => any;
+  addStroke: (stroke: Stroke3d) => void;
 }
 
 interface IState {
@@ -63,8 +64,8 @@ class Controls extends React.Component<IProps, IState> {
       FAR
     );
     mat4.translate(matrix, matrix, vec3.fromValues(0, 0, -dist));
-    mat4.rotateX(matrix, matrix, beta / 100);
-    mat4.rotateY(matrix, matrix, alpha / 100);
+    mat4.rotateX(matrix, matrix, beta);
+    mat4.rotateY(matrix, matrix, alpha);
     mat4.translate(matrix, matrix, vec3.fromValues(-tx, -ty, -tz));
 
     return matrix;
@@ -93,13 +94,27 @@ class Controls extends React.Component<IProps, IState> {
 
   getData = () => this.transformData(this.props.data3d, this.getMatrix());
 
-  onDraw = (pos: Position2d) => { };
+  onDraw = (pos: Position2d) => {
+    const matrix = this.getMatrix();
+    mat4.invert(matrix, matrix);
+    const { width, height } = this.props;
+    const vector = vec4.fromValues(
+      pos[0] / width - 0.5,
+      pos[1] / height - 0.5,
+      0,
+      1
+    );
+    vec4.transformMat4(vector, vector, matrix);
+    const w = 1 / vector[3];
+    const pos3d = [vector[0] * w, vector[1] * w, vector[2] * w] as Position3d;
+    this.props.addStroke([pos3d, 10, [255, 0, 0]]);
+  };
 
   onRotate = ([dx, dy]: Position2d) => {
     this.setState(({ direction: { alpha, beta, dist } }: IState) => ({
       direction: {
-        alpha: alpha - dx,
-        beta: beta + dy,
+        alpha: alpha - dx / 100,
+        beta: beta + dy / 100,
         dist,
       },
     }));
