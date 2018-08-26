@@ -109,6 +109,7 @@ class PointerCanvas extends React.Component<IProps, IState> {
     e.preventDefault();
     this.setState({
       cursorShape: CursorShapeEnum.NORMAL,
+      lastRotatePos: null,
     });
   };
 
@@ -142,7 +143,7 @@ class PointerCanvas extends React.Component<IProps, IState> {
         onContextMenu={this.onContextMenu}
         onMouseUp={this.onMouseUp}
         onWheel={this.onWheel}
-        style={{ cursor: 'none' }}
+        style={{ cursor: 'none', position: 'absolute', top: 0, left: 0 }}
       >
         {[this.state.mousePos, this.state.cursorShape]}
       </Canvas>

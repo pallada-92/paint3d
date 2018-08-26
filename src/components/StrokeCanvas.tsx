@@ -6,7 +6,7 @@ import { color2string } from '../utils';
 
 const drawStroke = (
   ctx: CanvasRenderingContext2D,
-  [[x, y], radius, color]: Stroke2d
+  [order, [x, y], radius, color]: Stroke2d
 ) => {
   ctx.fillStyle = color2string(color);
   ctx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
