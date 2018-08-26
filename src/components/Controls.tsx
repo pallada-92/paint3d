@@ -1,14 +1,14 @@
-import * as React from 'react';
 import { mat4, vec3, vec4 } from 'gl-matrix';
-import { sortBy, clamp } from 'ramda';
+import { clamp, sortBy } from 'ramda';
+import * as React from 'react';
 
 import {
-  Position3d,
+  CameraDirection,
   Position2d,
+  Position3d,
+  Shape,
   Stroke2d,
   Stroke3d,
-  CameraDirection,
-  Shape,
 } from '../types';
 
 interface IArgs {
@@ -40,7 +40,7 @@ const FAR = 10000;
 const getInitialTarget = () => [FAR / 2, FAR / 2, FAR / 2] as Position3d;
 
 class Controls extends React.Component<IProps, IState> {
-  state: IState = {
+  public state: IState = {
     target: getInitialTarget(),
     direction: {
       alpha: 0,
@@ -49,7 +49,7 @@ class Controls extends React.Component<IProps, IState> {
     },
   };
 
-  getMatrix = () => {
+  public getMatrix = () => {
     const {
       target: [tx, ty, tz],
       direction: { alpha, beta, dist },
@@ -72,20 +72,20 @@ class Controls extends React.Component<IProps, IState> {
     return matrix;
   };
 
-  transformData = (data3d: Stroke3d[], matrix: mat4): Stroke2d[] => {
+  public transformData = (data3d: Stroke3d[], matrix: mat4): Stroke2d[] => {
     const vector = vec4.create();
     const res: Stroke2d[] = [];
     const { width, height } = this.props;
 
     this.props.data3d.forEach(stroke => {
-      if (stroke === null) return;
+      if (stroke === null) { return; }
       const [[x, y, z], radius, color, shape] = stroke;
       vec4.set(vector, x, y, z, 1);
       vec4.transformMat4(vector, vector, matrix);
       const rx = vector[0];
       const ry = vector[1];
       const rw = vector[3];
-      if (rw < 0) return;
+      if (rw < 0) { return; }
       const u = (rx / rw + 0.5) * width;
       const v = (ry / rw + 0.5) * height;
       const elem = [
@@ -101,9 +101,9 @@ class Controls extends React.Component<IProps, IState> {
     return sortBy(v => v[0], res);
   };
 
-  getData = () => this.transformData(this.props.data3d, this.getMatrix());
+  public getData = () => this.transformData(this.props.data3d, this.getMatrix());
 
-  onDraw = (pos: Position2d) => {
+  public onDraw = (pos: Position2d) => {
     const matrix = this.getMatrix();
     const [tx, ty, tz] = this.state.target;
     const v1 = vec4.fromValues(tx, ty, tz, 1);
@@ -123,7 +123,7 @@ class Controls extends React.Component<IProps, IState> {
     this.props.addStroke([pos3d, 10, [255, 0, 0], Shape.RECTANGLE]);
   };
 
-  onRotate = ([dx, dy]: Position2d) => {
+  public onRotate = ([dx, dy]: Position2d) => {
     this.setState(({ direction: { alpha, beta, dist } }: IState) => ({
       direction: {
         alpha: alpha - dx / 100,
@@ -133,8 +133,8 @@ class Controls extends React.Component<IProps, IState> {
     }));
   };
 
-  onScroll = (delta: number) => {
-    if (delta === 0) return;
+  public onScroll = (delta: number) => {
+    if (delta === 0) { return; }
     this.setState(() => {
       const matrix = this.getMatrix();
       const vector = vec4.fromValues(0, 0, 5000, 5000);
@@ -153,7 +153,7 @@ class Controls extends React.Component<IProps, IState> {
     });
   };
 
-  render() {
+  public render() {
     return this.props.children({
       onDraw: this.onDraw,
       onRotate: this.onRotate,

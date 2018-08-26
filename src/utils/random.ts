@@ -4,9 +4,9 @@ import {
   Color,
   Position2d,
   Position3d,
+  Shape,
   Stroke2d,
   Stroke3d,
-  Shape,
 } from '../types';
 
 export const random = (min: number, max: number): number =>

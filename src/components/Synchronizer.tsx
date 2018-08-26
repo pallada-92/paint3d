@@ -1,8 +1,8 @@
+import { values } from 'ramda';
 import * as React from 'react';
 import * as io from 'socket.io-client';
-import { values } from 'ramda';
 
-import { Stroke3d, Shape } from '../types';
+import { Shape, Stroke3d } from '../types';
 
 interface IArgs {
   addStroke: (stroke: Stroke3d) => void;
@@ -18,19 +18,13 @@ interface IState {
 }
 
 class Synchronizer extends React.Component<IProps, IState> {
-  data: Stroke3d[] = [];
+  public data: Stroke3d[] = [];
 
-  pendingData: { [stroke: string]: any } = {};
+  public pendingData: { [stroke: string]: any } = {};
 
-  state: IState = { version: -1 };
+  public state: IState = { version: -1 };
 
-  socket: SocketIOClient.Socket;
-
-  incVersion = () => {
-    this.setState(({ version }) => ({
-      version: version + 1,
-    }));
-  };
+  public socket: SocketIOClient.Socket;
 
   constructor(props: IProps) {
     super(props);
@@ -50,7 +44,13 @@ class Synchronizer extends React.Component<IProps, IState> {
     });
   }
 
-  addStroke = (stroke: Stroke3d) => {
+  public incVersion = () => {
+    this.setState(({ version }) => ({
+      version: version + 1,
+    }));
+  };
+
+  public addStroke = (stroke: Stroke3d) => {
     if (stroke === null) {
       return;
     }
@@ -70,13 +70,13 @@ class Synchronizer extends React.Component<IProps, IState> {
     this.incVersion();
   };
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     this.socket.close();
   }
 
-  getData = () => this.data.concat(values(this.pendingData));
+  public getData = () => this.data.concat(values(this.pendingData));
 
-  render() {
+  public render() {
     return this.props.children({
       addStroke: this.addStroke,
       data: this.getData(),

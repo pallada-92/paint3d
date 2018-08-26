@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { host } from 'storybook-host';
+import * as React from 'react';
 import ReactResizeDetector from 'react-resize-detector';
+import { host } from 'storybook-host';
 
 export const makeHostStory = (
   name: string,
@@ -16,7 +16,7 @@ export const makeHostStory = (
       })
     )
     .add('default', () => (
-      <ReactResizeDetector handleWidth handleHeight>
+      <ReactResizeDetector handleWidth={true} handleHeight={true}>
         {(width: number, height: number) => func(width, height)}
       </ReactResizeDetector>
     ));

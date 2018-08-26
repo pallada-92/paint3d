@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import { makeHostStory } from '../utils/story';
-import Synchronizer from './Synchronizer';
 import Controls from './Controls';
-import StrokeCanvas from './StrokeCanvas';
 import PointerCanvas from './PointerCanvas';
+import StrokeCanvas from './StrokeCanvas';
+import Synchronizer from './Synchronizer';
 
 makeHostStory('Synchronizer', (width: number, height: number) => (
   <Synchronizer>

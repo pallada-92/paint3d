@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { action } from '@storybook/addon-actions';
+import * as React from 'react';
 
 import { makeHostStory } from '../utils/story';
 import PointerCanvas from './PointerCanvas';

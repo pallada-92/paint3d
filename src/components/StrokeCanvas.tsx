@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { Stroke2d, Shape } from '../types';
-import Canvas from './Canvas';
+import { Shape, Stroke2d } from '../types';
 import { color2string } from '../utils';
+import Canvas from './Canvas';
 
 const drawStroke = (
   ctx: CanvasRenderingContext2D,

@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import { Position2d } from '../types';
-import Canvas from './Canvas';
 import { color2string, vectorSub } from '../utils';
 import {
-  mouseOffset,
   isLeftBtnClicked,
   isRightBtnClicked,
+  mouseOffset,
 } from '../utils/events';
+import Canvas from './Canvas';
 
 export interface IProps {
   width: number;
@@ -34,7 +34,7 @@ const drawCursor = (
   [mousePos, cursorShape]: [Position2d | null, CursorShapeEnum]
 ) => {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  if (mousePos === null) return;
+  if (mousePos === null) { return; }
   const [x, y] = mousePos;
   if (cursorShape === CursorShapeEnum.NORMAL) {
     ctx.strokeStyle = color2string([255, 0, 0]);
@@ -64,13 +64,13 @@ const drawCursor = (
 };
 
 class PointerCanvas extends React.Component<IProps, IState> {
-  state: IState = {
+  public state: IState = {
     mousePos: null,
     lastRotatePos: null,
     cursorShape: CursorShapeEnum.NORMAL,
   };
 
-  onMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  public onMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     e.preventDefault();
 
     const mousePos = mouseOffset(e);
@@ -86,7 +86,7 @@ class PointerCanvas extends React.Component<IProps, IState> {
     }
   };
 
-  onMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  public onMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     e.preventDefault();
 
     const mousePos = mouseOffset(e);
@@ -110,7 +110,7 @@ class PointerCanvas extends React.Component<IProps, IState> {
     }
   };
 
-  onMouseUp = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  public onMouseUp = (e: React.MouseEvent<HTMLCanvasElement>) => {
     e.preventDefault();
     this.setState({
       cursorShape: CursorShapeEnum.NORMAL,
@@ -118,17 +118,17 @@ class PointerCanvas extends React.Component<IProps, IState> {
     });
   };
 
-  onContextMenu = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  public onContextMenu = (e: React.MouseEvent<HTMLCanvasElement>) => {
     e.preventDefault();
   };
 
-  onMouseLeave = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  public onMouseLeave = (e: React.MouseEvent<HTMLCanvasElement>) => {
     this.setState({
       mousePos: null,
     });
   };
 
-  onWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
+  public onWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
     e.preventDefault();
     this.setState({
       cursorShape: CursorShapeEnum.SCROLLING,
@@ -136,7 +136,7 @@ class PointerCanvas extends React.Component<IProps, IState> {
     this.props.onScroll(e.deltaY);
   };
 
-  render() {
+  public render() {
     const { width, height } = this.props;
     return (
       <Canvas

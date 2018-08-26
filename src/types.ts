@@ -16,8 +16,8 @@ export enum Shape {
 export type Stroke2d = [Order, Position2d, Radius, Color, Shape];
 export type Stroke3d = [Position3d, Radius, Color, Shape] | null;
 
-export type CameraDirection = {
+export interface CameraDirection {
   alpha: number;
   beta: number;
   dist: number;
-};
+}
