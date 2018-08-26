@@ -4,7 +4,7 @@ from flask_socketio import SocketIO, emit
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-data_length = 5
+data_length = 1000
 data = [None] * data_length
 pointer = 0
 

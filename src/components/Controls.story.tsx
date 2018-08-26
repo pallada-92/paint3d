@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { makeHostStory } from '../utils/story';
 import { randomStrokes3d } from '../utils/random';
-import { Stroke3d } from '../types';
 import Controls from './Controls';
-import StrokeCanvas from './StrokeCanvas';
 import PointerCanvas from './PointerCanvas';
+import { Stroke3d } from '../types';
+import StrokeCanvas from './StrokeCanvas';
 
 makeHostStory('Controls', (width: number, height: number) => (
   <Controls

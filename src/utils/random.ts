@@ -1,6 +1,13 @@
 import { range } from 'ramda';
 
-import { Color, Position2d, Position3d, Stroke2d, Stroke3d } from '../types';
+import {
+  Color,
+  Position2d,
+  Position3d,
+  Stroke2d,
+  Stroke3d,
+  Shape,
+} from '../types';
 
 export const random = (min: number, max: number): number =>
   min + Math.random() * (max - min);
@@ -26,6 +33,9 @@ export const randomPosition3d = (
   depth: number
 ): Position3d => [random(0, width), random(0, height), random(0, depth)];
 
+export const randomShape = () =>
+  [Shape.RECTANGLE, Shape.RECTANGLE_BORDER][randomInt(0, 1)];
+
 export const randomStrokes2d = (
   width: number,
   height: number,
@@ -38,6 +48,7 @@ export const randomStrokes2d = (
         randomPosition2d(width, height),
         random(2, 10),
         randomColor(),
+        randomShape(),
       ] as Stroke2d
   );
 
@@ -53,5 +64,6 @@ export const randomStrokes3d = (
         randomPosition3d(width, height, depth),
         random(2, 10),
         randomColor(),
+        randomShape(),
       ] as Stroke3d
   );

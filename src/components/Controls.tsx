@@ -8,6 +8,7 @@ import {
   Stroke2d,
   Stroke3d,
   CameraDirection,
+  Shape,
 } from '../types';
 
 interface IArgs {
@@ -76,7 +77,9 @@ class Controls extends React.Component<IProps, IState> {
     const res: Stroke2d[] = [];
     const { width, height } = this.props;
 
-    this.props.data3d.forEach(([[x, y, z], radius, color]) => {
+    this.props.data3d.forEach(stroke => {
+      if (stroke === null) return;
+      const [[x, y, z], radius, color, shape] = stroke;
       vec4.set(vector, x, y, z, 1);
       vec4.transformMat4(vector, vector, matrix);
       const rx = vector[0];
@@ -85,7 +88,13 @@ class Controls extends React.Component<IProps, IState> {
       if (rw < 0) return;
       const u = (rx / rw + 0.5) * width;
       const v = (ry / rw + 0.5) * height;
-      const elem = [-rw, [u, v], 100000 / rw, color] as Stroke2d;
+      const elem = [
+        -rw,
+        [u, v],
+        (1000 * radius) / rw,
+        color,
+        shape,
+      ] as Stroke2d;
       res.push(elem);
     });
 
@@ -99,10 +108,8 @@ class Controls extends React.Component<IProps, IState> {
     const [tx, ty, tz] = this.state.target;
     const v1 = vec4.fromValues(tx, ty, tz, 1);
     vec4.transformMat4(v1, v1, matrix);
-    console.log(v1[0], v1[1], v1[2], v1[3]);
     mat4.invert(matrix, matrix);
     const { width, height } = this.props;
-    // const { dist } = this.state.direction;
     const m = 1;
     const vector = vec4.fromValues(
       (pos[0] / width - 0.5) * m,
@@ -113,7 +120,7 @@ class Controls extends React.Component<IProps, IState> {
     vec4.transformMat4(vector, vector, matrix);
     const w = 1 / vector[3];
     const pos3d = [vector[0] * w, vector[1] * w, vector[2] * w] as Position3d;
-    this.props.addStroke([pos3d, 10, [255, 0, 0]]);
+    this.props.addStroke([pos3d, 10, [255, 0, 0], Shape.RECTANGLE]);
   };
 
   onRotate = ([dx, dy]: Position2d) => {

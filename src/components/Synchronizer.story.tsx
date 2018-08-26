@@ -5,10 +5,9 @@ import Synchronizer from './Synchronizer';
 import Controls from './Controls';
 import StrokeCanvas from './StrokeCanvas';
 import PointerCanvas from './PointerCanvas';
-import { randomStrokes3d } from '../utils/random';
 
 makeHostStory('Synchronizer', (width: number, height: number) => (
-  <Synchronizer initialData={randomStrokes3d(10000, 10000, 10000, 100)}>
+  <Synchronizer>
     {({ addStroke, data }) => (
       <Controls
         addStroke={addStroke}
