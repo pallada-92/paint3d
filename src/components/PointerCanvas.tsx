@@ -73,7 +73,12 @@ class PointerCanvas extends React.Component<IProps, IState> {
   onMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     e.preventDefault();
 
-    if (isRightBtnClicked(e)) {
+    const mousePos = mouseOffset(e);
+
+    if (isLeftBtnClicked(e)) {
+      this.props.onDraw(mousePos);
+      this.setState({ mousePos, cursorShape: CursorShapeEnum.NORMAL });
+    } else if (isRightBtnClicked(e)) {
       this.setState({
         lastRotatePos: mouseOffset(e),
         cursorShape: CursorShapeEnum.ROTATING,
@@ -138,6 +143,7 @@ class PointerCanvas extends React.Component<IProps, IState> {
         width={width}
         height={height}
         draw={drawCursor}
+        onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
         onMouseLeave={this.onMouseLeave}
         onContextMenu={this.onContextMenu}

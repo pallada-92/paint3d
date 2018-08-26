@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mat4, vec3, vec4 } from 'gl-matrix';
-import { sortBy } from 'ramda';
+import { sortBy, clamp } from 'ramda';
 
 import {
   Position3d,
@@ -96,13 +96,19 @@ class Controls extends React.Component<IProps, IState> {
 
   onDraw = (pos: Position2d) => {
     const matrix = this.getMatrix();
+    const [tx, ty, tz] = this.state.target;
+    const v1 = vec4.fromValues(tx, ty, tz, 1);
+    vec4.transformMat4(v1, v1, matrix);
+    console.log(v1[0], v1[1], v1[2], v1[3]);
     mat4.invert(matrix, matrix);
     const { width, height } = this.props;
+    // const { dist } = this.state.direction;
+    const m = 1;
     const vector = vec4.fromValues(
-      pos[0] / width - 0.5,
-      pos[1] / height - 0.5,
-      0,
-      1
+      (pos[0] / width - 0.5) * m,
+      (pos[1] / height - 0.5) * m,
+      m * 0.9978,
+      m
     );
     vec4.transformMat4(vector, vector, matrix);
     const w = 1 / vector[3];
@@ -114,7 +120,7 @@ class Controls extends React.Component<IProps, IState> {
     this.setState(({ direction: { alpha, beta, dist } }: IState) => ({
       direction: {
         alpha: alpha - dx / 100,
-        beta: beta + dy / 100,
+        beta: clamp(-Math.PI / 2, Math.PI / 2, beta + dy / 100),
         dist,
       },
     }));
