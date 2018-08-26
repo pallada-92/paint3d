@@ -1,19 +1,9 @@
-import { Color, Stroke2d } from '../types';
+import { Color, Position2d } from '../types';
 
 export const color2string = ([r, g, b, a]: Color) =>
   a == null
     ? `rgb(${r}, ${g}, ${b})`
     : `rgba(${r}, ${g}, ${b}, ${a.toFixed(2)})`;
 
-export const drawStroke = (
-  ctx: CanvasRenderingContext2D,
-  [[x, y], radius, color]: Stroke2d
-) => {
-  ctx.fillStyle = color2string(color);
-  ctx.fillRect(
-    Math.round(x - radius),
-    Math.round(y - radius),
-    Math.round(radius * 2),
-    Math.round(radius * 2)
-  );
-};
+export const vectorSub = ([x0, y0]: Position2d, [x1, y1]: Position2d) =>
+  [x1 - x0, y1 - y0] as Position2d;

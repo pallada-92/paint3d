@@ -5,6 +5,13 @@ interface IProps<Data> {
   height: number;
   draw: (ctx: CanvasRenderingContext2D, data: Data) => void;
   children: Data;
+  onMouseDown?: React.MouseEventHandler<HTMLCanvasElement>;
+  onMouseMove?: React.MouseEventHandler<HTMLCanvasElement>;
+  onMouseUp?: React.MouseEventHandler<HTMLCanvasElement>;
+  onContextMenu?: React.MouseEventHandler<HTMLCanvasElement>;
+  onWheel?: React.WheelEventHandler<HTMLCanvasElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLCanvasElement>;
+  style?: any;
 }
 
 class Canvas<Data> extends React.Component<IProps<Data>> {
@@ -23,6 +30,7 @@ class Canvas<Data> extends React.Component<IProps<Data>> {
       props: { width, height },
     } = this;
 
+    // https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio
     const dpi = window.devicePixelRatio || 1;
 
     canvas.style.width = `${width}px`;
@@ -42,6 +50,7 @@ class Canvas<Data> extends React.Component<IProps<Data>> {
     ) {
       this.updateSize();
     }
+
     if (prevProps.children !== this.props.children) {
       this.redraw();
     }
@@ -57,7 +66,8 @@ class Canvas<Data> extends React.Component<IProps<Data>> {
   };
 
   public render() {
-    return <canvas ref={this.ref} />;
+    const { width, height, draw, children, ...rest } = this.props;
+    return <canvas ref={this.ref} {...rest} />;
   }
 }
 
