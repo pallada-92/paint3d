@@ -2,6 +2,7 @@
   "name": "paint3d",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/paint3d",
   "dependencies": {
     "gl-matrix": "^2.7.1",
     "ramda": "^0.25.0",

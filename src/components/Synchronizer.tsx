@@ -29,7 +29,9 @@ class Synchronizer extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
-    this.socket = io.connect('http://95.179.131.108:5555');
+    this.socket = io.connect(
+      process.env.REACT_APP_BACKEND || process.env.STORYBOOK_BACKEND || '/'
+    );
     this.socket.on('set-all', (data: any[]) => {
       this.data = data;
       this.incVersion();

@@ -10,6 +10,7 @@ import {
   Stroke2d,
   Stroke3d,
 } from '../types';
+import { randomDarkColor } from '../utils/random';
 
 interface IArgs {
   onDraw: (pos: Position2d) => void;
@@ -37,7 +38,11 @@ const NEAR = 10;
 
 const FAR = 10000;
 
+const MAGIC = 0.9978;
+
 const getInitialTarget = () => [FAR / 2, FAR / 2, FAR / 2] as Position3d;
+
+const paintColor = randomDarkColor();
 
 class Controls extends React.Component<IProps, IState> {
   public state: IState = {
@@ -119,13 +124,13 @@ class Controls extends React.Component<IProps, IState> {
     const vector = vec4.fromValues(
       (pos[0] / width - 0.5) * m,
       (pos[1] / height - 0.5) * m,
-      m * 0.9978,
+      m * MAGIC,
       m
     );
     vec4.transformMat4(vector, vector, matrix);
     const w = 1 / vector[3];
     const pos3d = [vector[0] * w, vector[1] * w, vector[2] * w] as Position3d;
-    this.props.addStroke([pos3d, 10, [255, 0, 0], Shape.RECTANGLE]);
+    this.props.addStroke([pos3d, 10, paintColor, Shape.RECTANGLE]);
   };
 
   public onRotate = ([dx, dy]: Position2d) => {

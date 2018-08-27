@@ -19,9 +19,9 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Paint 3d</title>
   </head>
-  <body>
+  <body style="overflow-x: hidden; overflow-y: hidden; padding: 0px; margin: 0px;">
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
@@ -36,5 +36,8 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';document.head.appendChild(script);})()
+    </script>
   </body>
 </html>

@@ -5,31 +5,34 @@ import PointerCanvas from './PointerCanvas';
 import StrokeCanvas from './StrokeCanvas';
 import Synchronizer from './Synchronizer';
 
-const width = 700;
-const height = 700;
+import FitWindow from './FitWindow';
 
 const App = () => (
   <Synchronizer>
     {({ addStroke, data: data3d }) => (
-      <Controls
-        addStroke={addStroke}
-        data3d={data3d}
-        width={width}
-        height={height}
-      >
-        {({ onDraw, onRotate, onScroll, data: data2d }) => (
-          <React.Fragment>
-            <StrokeCanvas width={width} height={height} data={data2d} />
-            <PointerCanvas
-              width={width}
-              height={height}
-              onDraw={onDraw}
-              onRotate={onRotate}
-              onScroll={onScroll}
-            />
-          </React.Fragment>
+      <FitWindow>
+        {(width: number, height: number) => (
+          <Controls
+            addStroke={addStroke}
+            data3d={data3d}
+            width={width}
+            height={height}
+          >
+            {({ onDraw, onRotate, onScroll, data: data2d }) => (
+              <React.Fragment>
+                <StrokeCanvas width={width} height={height} data={data2d} />
+                <PointerCanvas
+                  width={width}
+                  height={height}
+                  onDraw={onDraw}
+                  onRotate={onRotate}
+                  onScroll={onScroll}
+                />
+              </React.Fragment>
+            )}
+          </Controls>
         )}
-      </Controls>
+      </FitWindow>
     )}
   </Synchronizer>
 );

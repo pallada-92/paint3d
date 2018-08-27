@@ -22,6 +22,16 @@ export const randomColor = (): Color => [
   random(1, 1),
 ];
 
+export const randomDarkColor = (): Color => {
+  while (true) {
+    const color = randomColor();
+    const mean = (color[0] + color[1] + color[2]) / 3;
+    if (50 < mean && mean < 100) {
+      return color;
+    }
+  }
+};
+
 export const randomPosition2d = (
   width: number,
   height: number
