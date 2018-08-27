@@ -10,7 +10,7 @@ import StrokeCanvas from './StrokeCanvas';
 makeHostStory('Controls', (width: number, height: number) => (
   <Controls
     addStroke={(stroke: Stroke3d) => console.log(stroke)}
-    data3d={randomStrokes3d(10000, 10000, 10000, 100)}
+    data3d={randomStrokes3d(10000, 10000, 10000, 5000)}
     width={width}
     height={height}
   >
