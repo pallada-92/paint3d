@@ -10,14 +10,14 @@ http://95.179.131.108:3333
 * Левой кнопки мыши можно рисовать в плоскости перед камерой.
 * Правой кнопкой вращается камера.
 * Колесом прокрутки камера движется вперед-назад (не путать с увеличением).
-* До синхронизации с сервером каждый мазок кисти является пустым внутри (что-то вроде optimistic update)
+* До синхронизации с сервером каждый мазок кисти рисуется пустым внутри (что-то вроде optimistic update)
 * Сервер хранит данные в виде кольцевого буффера заданного размера (по умолчанию 5 000 мазков).
 
 ## Технологии
 
 * Socket.io
 * Flask (Python 3) на сервере.
-* React, Webpack etc. ([Create React App](https://github.com/facebook/create-react-app)
+* React, Webpack etc. ([Create React App](https://github.com/facebook/create-react-app))
 * Typescript
 * Storybook
 * TSLint, Prettier
@@ -58,4 +58,4 @@ REACT_APP_BACKEND=http://95.179.131.108:3333 npm start
 STORYBOOK_BACKEND=http://95.179.131.108:3333 npm start
 ```
 
-Он будет запущен на 6006 порту
+Он будет запущен на 6006 порту и будет использовать API с 3333 порта.
