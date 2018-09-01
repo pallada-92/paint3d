@@ -1,5 +1,6 @@
 language: node_js
+os: linux
+sudo: required
+dist: trusty
 node_js:
-  - "8"
-before_install:
-  - npm config set strict-ssl false; npm i -g npm@6
+  - '6'
