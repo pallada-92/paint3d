@@ -2,4 +2,4 @@ language: node_js
 node_js:
   - "8"
 before_install:
-  - npm i -g npm@6
+  - npm config set strict-ssl false; npm i -g npm@6
